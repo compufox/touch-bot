@@ -15,9 +15,10 @@
   
   (handler-case
       (with-user-abort
-	(run-bot (make-instance 'mastodon-bot
+	(run-bot ((make-instance 'mastodon-bot
 				:config-file "bot.config"
 				:on-notification #'make-reply)
+		  :delete-command t)
 	  (after-every (90 :minutes)
 	    (post (generate-text) :visibility :public))))
     (user-abort ()
